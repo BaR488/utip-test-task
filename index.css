@@ -1,0 +1,75 @@
+#mainView {
+    display: flex;
+    flex-direction: column;
+}
+
+canvas {
+    width: 300px;
+    height: 150px;
+    border: solid black;
+    border-radius: 10px;
+}
+
+#controls {
+    width: 300px;
+    border: solid black;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+}
+
+#colorPicker {
+    display: flex;
+    flex-direction: row;
+    /*justify-content: space-around;*/
+}
+
+#brushPicker {
+    display: flex;
+    flex-direction: row;
+    /*justify-content: space-around;*/
+}
+
+.colorItem {
+    width: 20px;
+    height: 20px;
+    border: solid black;
+    border-radius: 10px;
+    border-width: medium;
+    margin: 5px;
+}
+
+#colorPicker, #brushPicker {
+}
+
+.brushItem {
+    width: 20px;
+    height: 20px;
+    border: solid black;
+    border-radius: 20px;
+    border-width: medium;
+    margin: 5px;
+    display: flex;
+    justify-content: center;
+}
+
+.active {
+    border-width: thick;
+}
+
+button {
+    width: 33%;
+    height: 30%;
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    margin: 5px;
+}
+
+#clearBtn {
+    background-color: crimson;
+}
