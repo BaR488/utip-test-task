@@ -1,3 +1,5 @@
+import {ArrayCompressor} from "./utils.js";
+
 class Brush {
     color = null;
     thickness = null;
@@ -72,20 +74,23 @@ export class CanvasComponent {
 
         colors.forEach((color, colorItem) =>
             colorItem.addEventListener("click", () => {
-                colors.forEach((value, key) => key.className = key.className.replace(this._activeControlClass,""));
+                colors.forEach((value, key) => key.className = key.className.replace(this._activeControlClass, ""));
                 this._brush.color = color;
                 colorItem.className += this._activeControlClass
             }, false));
 
         thicknesses.forEach((thickness, thicknessItem) =>
             thicknessItem.addEventListener("click", () => {
-                thicknesses.forEach((value, key) => key.className = key.className.replace(this._activeControlClass,""));
+                thicknesses.forEach((value, key) => key.className = key.className.replace(this._activeControlClass, ""));
                 this._brush.thickness = thickness;
                 thicknessItem.className += this._activeControlClass
             }, false));
 
-        saveBtn.addEventListener("click", () =>
-            this._options.saveCallback(JSON.stringify(ctx.getImageData(0, 0, this._options.width, this._options.height))), false);
+        saveBtn.addEventListener("click", async () =>
+            this._options.saveCallback(
+                await ArrayCompressor.compress(
+                    ctx.getImageData(0, 0, this._options.width, this._options.height).data)
+            ), false);
 
         clearBtn.addEventListener("click", () =>
             ctx.clearRect(0, 0, this._options.width, this._options.height), false);
@@ -94,16 +99,15 @@ export class CanvasComponent {
     async updateData(data) {
         if (data) {
             let ctx = this._canvas.getContext("2d");
-            let newData = Object.values(JSON.parse(data).data);
 
             let currentData = ctx.getImageData(0, 0, this._options.width, this._options.height);
 
             for (let i = 0; i < currentData.data.length; i += 4) {
                 if (!currentData.data[i] && !currentData.data[i + 1] && !currentData.data[i + 2]) {
-                    currentData.data[i] = newData[i];
-                    currentData.data[i + 1] = newData[i + 1];
-                    currentData.data[i + 2] = newData[i + 2];
-                    currentData.data[i + 3] = newData[i + 3];
+                    currentData.data[i] = data[i];
+                    currentData.data[i + 1] = data[i + 1];
+                    currentData.data[i + 2] = data[i + 2];
+                    currentData.data[i + 3] = data[i + 3];
                 }
             }
 
