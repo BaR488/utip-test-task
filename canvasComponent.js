@@ -72,14 +72,14 @@ export class CanvasComponent {
 
         colors.forEach((color, colorItem) =>
             colorItem.addEventListener("click", () => {
-                colors.forEach((value, key) => key.className = key.className.replace(this._activeControlClass,""))
+                colors.forEach((value, key) => key.className = key.className.replace(this._activeControlClass,""));
                 this._brush.color = color;
                 colorItem.className += this._activeControlClass
             }, false));
 
         thicknesses.forEach((thickness, thicknessItem) =>
             thicknessItem.addEventListener("click", () => {
-                thicknesses.forEach((value, key) => key.className = key.className.replace(this._activeControlClass,""))
+                thicknesses.forEach((value, key) => key.className = key.className.replace(this._activeControlClass,""));
                 this._brush.thickness = thickness;
                 thicknessItem.className += this._activeControlClass
             }, false));
@@ -91,7 +91,7 @@ export class CanvasComponent {
             ctx.clearRect(0, 0, this._options.width, this._options.height), false);
     }
 
-    updateData(data) {
+    async updateData(data) {
         if (data) {
             let ctx = this._canvas.getContext("2d");
             let newData = Object.values(JSON.parse(data).data);
@@ -145,7 +145,7 @@ export class CanvasComponent {
             let brushSpan = document.createElement("span");
             brushSpan.innerText = thickness;
             brushDiv.className = "brushItem";
-            brushDiv.append(brushSpan)
+            brushDiv.append(brushSpan);
             brushPicker.append(brushDiv);
             return [
                 brushDiv,

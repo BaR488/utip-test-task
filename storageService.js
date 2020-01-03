@@ -11,10 +11,10 @@ export class StorageService {
         };
     }
 
-    setValue (key, value) {
+    async setValue (key, value) {
         localStorage.setItem(key, value);
     }
-    getValue (key) {
+    async getValue (key) {
         return localStorage.getItem(key)
     }
     listenKey (key, callback) {

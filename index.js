@@ -4,8 +4,8 @@ import {StorageService} from "./storageService.js"
 const mainView = document.getElementById("mainView");
 const storage = new StorageService();
 
-globalThis.onload = function() {
-    let component = CanvasComponent.init(mainView, storage.getValue("canvasData"), {
+globalThis.onload = async () => {
+    let component = CanvasComponent.init(mainView, await storage.getValue("canvasData"), {
         width: 300,
         height: 150,
         colors: [
@@ -16,12 +16,12 @@ globalThis.onload = function() {
             "black"
         ],
         thicknesses: [5, 10, 15],
-        saveCallback: function (data) {
-            storage.setValue("canvasData", data);
+        saveCallback: async (data) => {
+            await storage.setValue("canvasData", data);
         }
     });
 
-    storage.listenKey("canvasData",  () => {
-        component.updateData(storage.getValue("canvasData"));
+    storage.listenKey("canvasData",  async () => {
+        component.updateData(await storage.getValue("canvasData"));
     })
 };
